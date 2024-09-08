@@ -17,6 +17,12 @@ contract Twitter{
     
     mapping (address => Tweet[]) public tweets;
 
+    event createTweetEvent(uint id,address author,string content,uint256 timestamp);
+
+    event likedTweetEvent(address liker,address author, uint tweetId,uint likes);
+
+    event unlikedTweetEvent(address liker,address author, uint tweetId,uint likes);
+
     constructor() {
         owner = msg.sender;
     }
@@ -44,6 +50,7 @@ contract Twitter{
         });
 
         tweets[msg.sender].push(newTweet);
+        emit createTweetEvent(newTweet.id, msg.sender, _tweet, block.timestamp);
     }
 
     function getAllTweets() view public returns (Tweet[] memory){
@@ -60,10 +67,12 @@ contract Twitter{
 
     function likeTweet(uint id,address author) external tweetExists(id,author) {
         tweets[author][id].likes++;
+        emit likedTweetEvent(msg.sender, author, id, tweets[author][id].likes);
     }
 
     function unLikeTweet(uint id,address author) external tweetExists(id,author) {
         require(tweets[author][id].likes>0,"Tweet has no likes");
         tweets[author][id].likes--;
+        emit unlikedTweetEvent(msg.sender, author, id, tweets[author][id].likes);
     }
 }
