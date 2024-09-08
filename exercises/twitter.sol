@@ -53,8 +53,8 @@ contract Twitter{
         emit createTweetEvent(newTweet.id, msg.sender, _tweet, block.timestamp);
     }
 
-    function getAllTweets() view public returns (Tweet[] memory){
-        return tweets[msg.sender];
+    function getAllTweets(address _user) view public returns (Tweet[] memory){
+        return tweets[_user];
     }
 
     function getTweet(uint i) view public returns (Tweet memory){
