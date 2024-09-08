@@ -8,7 +8,7 @@ contract calculator{
         res = 0;
     }
 
-    function add(int a) public{
+    function add(int a) public {
         res += a;
     }
 

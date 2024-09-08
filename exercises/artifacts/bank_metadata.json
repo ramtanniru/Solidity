@@ -1,6 +1,6 @@
 {
 	"compiler": {
-		"version": "0.8.26+commit.8a97fa7a"
+		"version": "0.8.0+commit.c7dfd78e"
 	},
 	"language": "Solidity",
 	"output": {
@@ -13,31 +13,30 @@
 			{
 				"inputs": [
 					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"name": "balances",
+				"outputs": [
+					{
 						"internalType": "uint256",
-						"name": "amt",
+						"name": "",
 						"type": "uint256"
 					}
 				],
-				"name": "addBal",
-				"outputs": [],
-				"stateMutability": "nonpayable",
+				"stateMutability": "view",
 				"type": "function"
 			},
 			{
 				"inputs": [
 					{
-						"internalType": "uint256",
-						"name": "amt",
-						"type": "uint256"
+						"internalType": "address",
+						"name": "user",
+						"type": "address"
 					}
 				],
-				"name": "delBal",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [],
 				"name": "getBal",
 				"outputs": [
 					{
@@ -47,6 +46,64 @@
 					}
 				],
 				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "owner",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "pause",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "paused",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_to",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "amt",
+						"type": "uint256"
+					}
+				],
+				"name": "transfer",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "unpause",
+				"outputs": [],
+				"stateMutability": "nonpayable",
 				"type": "function"
 			}
 		],
@@ -65,7 +122,7 @@
 		"compilationTarget": {
 			"exercises/bank.sol": "bank"
 		},
-		"evmVersion": "cancun",
+		"evmVersion": "istanbul",
 		"libraries": {},
 		"metadata": {
 			"bytecodeHash": "ipfs"
@@ -78,11 +135,11 @@
 	},
 	"sources": {
 		"exercises/bank.sol": {
-			"keccak256": "0x757aeee30da5bf466aac496a5604482266dbd4b1a9f81945134be98f8331d645",
+			"keccak256": "0x49b3f2119660c6079dec49d901d68c4c2640bef5e2649ce58adc2f14f1de5195",
 			"license": "UNLICENSED",
 			"urls": [
-				"bzz-raw://2b175bc248f2fbc65ea1d523de22af1c53a9476d607218fb43de4f9ac387c90b",
-				"dweb:/ipfs/QmTFKfmJJFgAb67mhb4xFaT46TwgxfnM2A3fgsFZ6UvSry"
+				"bzz-raw://b65afe313ef7397828e49f0e9f59558e0f63ecc252a1bcfd101319495b51b468",
+				"dweb:/ipfs/QmQn9rgXG3QhgPErWf7P6E5yoStzRY2mvCFuGBJMpxoEAR"
 			]
 		}
 	},

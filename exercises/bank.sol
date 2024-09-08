@@ -2,20 +2,43 @@
 pragma solidity>=0.4.16;
 
 contract bank{
-    uint bal;
-    bool flag;
-    string str;
-    address node;
+    address public owner;
+    bool public paused;
+    mapping(address => uint) public balances;
     constructor(){
-        bal = 1;
+        owner = msg.sender;
+        paused = false;
+        balances[owner] = 1000;
     }
-    function getBal() view public returns (uint){
-        return bal;
+
+    modifier isPaused(){
+        require(paused==false,"Your account is paused");
+        _;
     }
-    function addBal(uint amt) public{
-        bal += amt;
+
+    modifier onlyOwner(){
+        require(msg.sender==owner,"You are not owner");
+        _;
     }
-    function delBal(uint amt) public{
-        bal -= amt;
+
+    function pause() public onlyOwner {
+        paused = true;
     }
+
+    function unpause() public onlyOwner {
+        paused = false;
+    }
+
+
+    function getBal(address user) view public returns (uint){
+        return balances[user];
+    }
+
+    function transfer(address _to, uint amt) public isPaused {
+        address currOwner = msg.sender;
+        require(balances[currOwner]>=amt,"Insufficient balance");
+        balances[currOwner] -= amt;
+        balances[_to] += amt;
+    }
+
 }

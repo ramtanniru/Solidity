@@ -104,11 +104,11 @@
 	},
 	"sources": {
 		"exercises/calculator.sol": {
-			"keccak256": "0x6f38f384082721135b0b27376202a387f94b34172f7265b98ddee10774b45427",
+			"keccak256": "0x6c13640d7fb399cea46628c60749a2201ecd77ce690b624f06a52d60278634ac",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://fee66c8c7285edc1a53479b902f4d0ff7d6c9c8c2733bd6eedabbd2ecedf765e",
-				"dweb:/ipfs/QmW1T5bqdZh89Zwn5xwCeuDQESSryT2eAzTuvsWSoSg8ne"
+				"bzz-raw://8597f270e2671272a17a9f52d8b3cb351e9f079e29f496795abb7bafb577176b",
+				"dweb:/ipfs/QmP5LBCg8mmvQzbwSmk2KsLav53CvkMDnUFTGs2DZm2dVA"
 			]
 		}
 	},
