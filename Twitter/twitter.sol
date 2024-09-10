@@ -1,9 +1,16 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-contract Twitter{
+interface IProfile {
+    struct UserProfile {
+        string username;
+        string bio;
+    }
+    function setProfile(string memory _username,string memory _bio) external;
+    function getProfile(address _user) view external returns (UserProfile memory);
+}
 
-    address public owner;
+contract Twitter{
 
     struct Tweet{
         uint id;
@@ -12,6 +19,8 @@ contract Twitter{
         uint256 timestamp;
         uint256 likes;
     }
+
+    IProfile profileContract;
 
     uint public MAX_TWEET_LENGTH = 280;
     
@@ -23,12 +32,13 @@ contract Twitter{
 
     event unlikedTweetEvent(address liker,address author, uint tweetId,uint likes);
 
-    constructor() {
-        owner = msg.sender;
+    constructor(address _profileAddress) {
+        profileContract = IProfile(_profileAddress);
     }
 
-    modifier onlyOwner() {
-        require(msg.sender==owner,"You are not owner to change max tweet length");
+    modifier onlyRegistered() {
+        IProfile.UserProfile memory userProfileTemp = profileContract.getProfile(msg.sender);
+        require(bytes(userProfileTemp.username).length>0,"User not registered");
         _;
     }
 
@@ -37,7 +47,7 @@ contract Twitter{
         _;
     }
 
-    function createTweet(string memory _tweet) public {
+    function createTweet(string memory _tweet) public onlyRegistered {
 
         require(bytes(_tweet).length <= MAX_TWEET_LENGTH, "Tweet is too long");
 
@@ -61,18 +71,27 @@ contract Twitter{
         return tweets[msg.sender][i];
     }
 
-    function changeTweetLength(uint newLength) public onlyOwner {
+    function changeTweetLength(uint newLength) public {
         MAX_TWEET_LENGTH = newLength;
     }
 
-    function likeTweet(uint id,address author) external tweetExists(id,author) {
+    function likeTweet(uint id,address author) external tweetExists(id,author) onlyRegistered {
         tweets[author][id].likes++;
         emit likedTweetEvent(msg.sender, author, id, tweets[author][id].likes);
     }
 
-    function unLikeTweet(uint id,address author) external tweetExists(id,author) {
+    function unLikeTweet(uint id,address author) external tweetExists(id,author) onlyRegistered {
         require(tweets[author][id].likes>0,"Tweet has no likes");
         tweets[author][id].likes--;
         emit unlikedTweetEvent(msg.sender, author, id, tweets[author][id].likes);
+    }
+
+    function getTotalLikes(address _user) view external returns (uint) {
+        uint totalLikes = 0;
+        Tweet[] memory userTweets = tweets[_user];
+        for(uint i=0;i<userTweets.length;i++){
+            totalLikes += userTweets[i].likes;
+        }
+        return totalLikes;
     }
 }
